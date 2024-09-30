@@ -166,8 +166,8 @@ int enablePinvoltmod = 36;
 //analog pins
 
 
-#define arduino1280DigitalBitMapLength 54
-byte arduino1280DigitalBitMap[arduino1280DigitalBitMapLength] = {
+#define arduino2560DigitalBitMapLength 54
+byte arduino2560DigitalBitMap[arduino2560DigitalBitMapLength] = {
     //[0] =WRITE PROTECT  ON/OFF or 1/0
     //[1] =digital IRQ    ON/OFF or 1/0
     //[2] =digital PWM    ON/OFF or 1/0
@@ -184,7 +184,7 @@ byte arduino1280DigitalBitMap[arduino1280DigitalBitMapLength] = {
             B00000000,  B00000000,  B00000000,  B00000000//50-53 pin
 };
 
-//byte arduino1280DigitalBitMap[54] = {   
+//byte arduino2560DigitalBitMap[54] = {   
 //[0] =WRITE PROTECT  ON/OFF or 1/0
 //[1] =digital IRQ    ON/OFF or 1/0
 //[2] =digital PWM    ON/OFF or 1/0
@@ -193,7 +193,7 @@ byte arduino1280DigitalBitMap[arduino1280DigitalBitMapLength] = {
 //[5] =digital HIGH/LOW      or 1/0
 //[6] =digital PULLUP ON/OFF or 1/0
 //[7] =digital OUTPUT/INPUT  or 1/0
-//int arduino1280DigitalBitMapLength=54;
+//int arduino2560DigitalBitMapLength=54;
 //y=a given bit inside data The expression (1<<y) Then using bitwise AND, data & (1<<y) tests the given bit. 
 //If that bit is 1, a nonzero value results, causing the if to see it as being true. 
 //Otherwise, if the bit is 0, it is treated as false, so the else executes. 
@@ -204,8 +204,8 @@ byte arduino1280DigitalBitMap[arduino1280DigitalBitMapLength] = {
 // bit_write(c,p,m) (c ? bit_set(p,m) : bit_clear(p,m))
 // BIT(x) (0x01 << (x))
 // LONGBIT(x) ((unsigned long)0x00000001 << (x))              
-// bit_set(arduino1280DigitalBitMap[prompt_pin_int],7); //OUTPUT
-// bit_set(arduino1280DigitalBitMap[prompt_pin_int],5); //HIGH 
+// bit_set(arduino2560DigitalBitMap[prompt_pin_int],7); //OUTPUT
+// bit_set(arduino2560DigitalBitMap[prompt_pin_int],5); //HIGH 
 
 
 
@@ -344,13 +344,13 @@ void displayhelp(int pause = true)
     Serial.println("Press a  Analog Scan");
     Serial.println("Press d  Digital Scan");
     Serial.println("Press m  Available Memory");
-    Serial.println("Press i  I2c Scanner & arduino1280DigitalBitMap Array");
+    Serial.println("Press i  I2c Scanner & arduino2560DigitalBitMap Array");
     Serial.println("Press z  Register Port F&K Scan");
     Serial.println("Press y  Register Port E&H Scan");
     Serial.println("Press x  ALL Port Port A-L Scan");
     Serial.println("Press e  8 Bit Shift Register Pins:clock" + String(clockPin) + ",enable:" + String(enablePin10k) + ",data:" + String(dataPin10k));
     Serial.println("Press w  8 Bit Shift Register Pins:clock" + String(clockPin) + ",enable:" + String(enablePinvoltmod) + ",data:" + String(dataPin10k));
-    Serial.println("Press p  Prints all digitalPinToBitMask to digitalPinToPort " + String(arduino1280DigitalBitMapLength) + " Digital Pins");
+    Serial.println("Press p  Prints all digitalPinToBitMask to digitalPinToPort " + String(arduino2560DigitalBitMapLength) + " Digital Pins");
     PausePressKey(pause);
     //Serial.println();
     Serial.println("-----------------/W WRITE------------------------------");
@@ -392,14 +392,14 @@ void displayhelp(int pause = true)
 //analogRead       = /ra# ~ 81us to 122us.
 //analogReadFast   = Not created yet!
 //*****************************************************************************//*****************************************************************************//*****************************************************************************
-//Note: Running  a g = ~2900us so (22chars*80us=2320us) - (16analogReads*80us=1280us)  = 1040us of wasted time?
+//Note: Running  a g = ~2900us so (22chars*80us=2320us) - (16analogReads*80us=2560us)  = 1040us of wasted time?
 //**********************Current Views******************************************//*****************************************************************************//*****************************************************************************
 //analogReadFast  only reads 6kchars per sec 57kbaud still the 161us total.     
 //DigitalRead     reads       12000 samples per second ~ 80us so it's fine for now untill we speed up analog & Serial Lib.      
 //analogRead      is         1023/68=0to16 or Hex 0toF = .3volt resolution for char TX using HEX Protacol
 //analogReadFast needs to be ??us before HEX Protacol is dropped for something with better speed
 //analogRead (161us-80uscharTX_MAX) = 81us for a single analog read 
-//1 char at 115kbaud takes ~ 80us so 16analogReads*80us=1280us of time to create
+//1 char at 115kbaud takes ~ 80us so 16analogReads*80us=2560us of time to create
 //Serial.print + Serial.Read = ~22us
 //No Serial.Read or TX for 1 sec while digitalWriteFast 1/0 pin with same timing loop takes 62us 
 //so 84-62=22us so 22us went to SerialRead & SerialWrite Lib still faster then analogRead at 84us??
@@ -478,7 +478,7 @@ void setup()
     //  Serial.begin(57600);
     Serial.begin(115200);
     ResetCommandLine();
-    for (int x = 0; x < arduino1280DigitalBitMapLength; ++x)
+    for (int x = 0; x < arduino2560DigitalBitMapLength; ++x)
     {
         Serial.println();
         Serial.print("pin=");
@@ -513,15 +513,15 @@ void setup()
 // End Setup
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void display_arduino1280ArrayLength()
+void display_arduino2560ArrayLength()
 {
     Serial.println();
-    Serial.println("arduino1280DigitalBitMap: ");
-    for (int x = 0; x < arduino1280DigitalBitMapLength; ++x)
+    Serial.println("arduino2560DigitalBitMap: ");
+    for (int x = 0; x < arduino2560DigitalBitMapLength; ++x)
     {
         Serial.print(x);
         Serial.print("=");
-        printBits(arduino1280DigitalBitMap[x]);
+        printBits(arduino2560DigitalBitMap[x]);
         Serial.print(",");
     }
     Serial.println();
@@ -551,13 +551,13 @@ void loop()
 
     if (globalblinkstate == ON)//blink
     {
-        for (int i = 0; i < arduino1280DigitalBitMapLength; i++)
+        for (int i = 0; i < arduino2560DigitalBitMapLength; i++)
         {
-            byte data = arduino1280DigitalBitMap[i];   // fetch data from memory
+            byte data = arduino2560DigitalBitMap[i];   // fetch data from memory
             if ((!bit_get(data, 0)) && (bit_get(data, 3)) && (bit_get(data, 7)))
             {
-                bit_flip(arduino1280DigitalBitMap[i], 5);
-                digitalWrite(i, bit_get(arduino1280DigitalBitMap[i], 5));
+                bit_flip(arduino2560DigitalBitMap[i], 5);
+                digitalWrite(i, bit_get(arduino2560DigitalBitMap[i], 5));
             }
         }
 
@@ -604,7 +604,7 @@ void loop()
             else { DIGITAL = ON; }
         }
         else if (receivedchar == 'i') {
-            display_arduino1280ArrayLength();
+            display_arduino2560ArrayLength();
 
             //  Scan the I2C bus for devices
         // --------------------------------------
@@ -707,7 +707,7 @@ void loop()
 
         }
         else if (receivedchar == 'p') {
-            for (int x = 0; x < arduino1280DigitalBitMapLength; ++x)
+            for (int x = 0; x < arduino2560DigitalBitMapLength; ++x)
             {
                 Serial.println();
                 Serial.print("pin=");
@@ -1412,8 +1412,8 @@ int ProcessCommandLine()
             case 'h':
                 if (isdigitalpinvalid(prompt_pin_int))
                 {
-                    bit_set(arduino1280DigitalBitMap[prompt_pin_int], 7);
-                    bit_set(arduino1280DigitalBitMap[prompt_pin_int], 5);
+                    bit_set(arduino2560DigitalBitMap[prompt_pin_int], 7);
+                    bit_set(arduino2560DigitalBitMap[prompt_pin_int], 5);
                     digital_pin_change(prompt_pin_int, HIGH, OUTPUT);
                 }
                 break;
@@ -1421,8 +1421,8 @@ int ProcessCommandLine()
             case 'l':
                 if (isdigitalpinvalid(prompt_pin_int))
                 {
-                    bit_clear(arduino1280DigitalBitMap[prompt_pin_int], 5); //LOW              
-                    bit_set(arduino1280DigitalBitMap[prompt_pin_int], 7); //OUTPUT            
+                    bit_clear(arduino2560DigitalBitMap[prompt_pin_int], 5); //LOW              
+                    bit_set(arduino2560DigitalBitMap[prompt_pin_int], 7); //OUTPUT            
                     digital_pin_change(prompt_pin_int, LOW, OUTPUT);
                 }
                 break;
@@ -1430,8 +1430,8 @@ int ProcessCommandLine()
             case 'u':
                 if (isdigitalpinvalid(prompt_pin_int))
                 {
-                    bit_clear(arduino1280DigitalBitMap[prompt_pin_int], 5); //LOW              
-                    bit_set(arduino1280DigitalBitMap[prompt_pin_int], 7); //OUTPUT            
+                    bit_clear(arduino2560DigitalBitMap[prompt_pin_int], 5); //LOW              
+                    bit_set(arduino2560DigitalBitMap[prompt_pin_int], 7); //OUTPUT            
                     digital_pullup(prompt_pin_int);
                 }
                 break;
@@ -1446,7 +1446,7 @@ int ProcessCommandLine()
             case 'i':
                 if (isdigitalpinvalid(prompt_pin_int))
                 {
-                    bit_clear(arduino1280DigitalBitMap[prompt_pin_int], 7); //INPUT            
+                    bit_clear(arduino2560DigitalBitMap[prompt_pin_int], 7); //INPUT            
                     digital_pin_change(prompt_pin_int, LOW, INPUT);
                 }
 
@@ -1475,8 +1475,8 @@ int ProcessCommandLine()
                     time = micros();
                     tmpcount++;
                     //if(!isdigitalpinvalid(prompt_pin_int)){return -9999;}
-                    bit_flip(arduino1280DigitalBitMap[prompt_pin_int], 5);
-                    digitalWriteFast(prompt_pin_int, bit_get(arduino1280DigitalBitMap[prompt_pin_int], 5)); // Send the pin value
+                    bit_flip(arduino2560DigitalBitMap[prompt_pin_int], 5);
+                    digitalWriteFast(prompt_pin_int, bit_get(arduino2560DigitalBitMap[prompt_pin_int], 5)); // Send the pin value
 
                     if (time - old_time > interval)
                     {
@@ -1501,7 +1501,7 @@ int ProcessCommandLine()
 
                 }
                 pinMode(prompt_pin_int, INPUT);
-                bit_clear(arduino1280DigitalBitMap[prompt_pin_int], 5);
+                bit_clear(arduino2560DigitalBitMap[prompt_pin_int], 5);
                 return 1;
 
                 break;
@@ -1513,8 +1513,8 @@ int ProcessCommandLine()
                 {
                     time = micros();
                     tmpcount++;
-                    bit_flip(arduino1280DigitalBitMap[prompt_pin_int], 5);
-                    digitalWrite(prompt_pin_int, (bit_get(arduino1280DigitalBitMap[prompt_pin_int], 5))); // Send the pin value
+                    bit_flip(arduino2560DigitalBitMap[prompt_pin_int], 5);
+                    digitalWrite(prompt_pin_int, (bit_get(arduino2560DigitalBitMap[prompt_pin_int], 5))); // Send the pin value
 
                     if (time - old_time > interval)
                     {
@@ -1539,7 +1539,7 @@ int ProcessCommandLine()
 
                 }
                 pinMode(prompt_pin_int, INPUT);
-                bit_clear(arduino1280DigitalBitMap[prompt_pin_int], 5);
+                bit_clear(arduino2560DigitalBitMap[prompt_pin_int], 5);
                 return 1;
 
                 break;
@@ -1573,32 +1573,32 @@ void blinker(int pin)
 {
     Serial.print("b");
     Serial.print(pin, DEC); // Send the pin value
-    if (bit_get(arduino1280DigitalBitMap[pin], 3))    //turns off blink on 1 pin
+    if (bit_get(arduino2560DigitalBitMap[pin], 3))    //turns off blink on 1 pin
     {
-        bit_clear(arduino1280DigitalBitMap[pin], 3);
-        bit_clear(arduino1280DigitalBitMap[pin], 5);
-        bit_clear(arduino1280DigitalBitMap[pin], 7);
+        bit_clear(arduino2560DigitalBitMap[pin], 3);
+        bit_clear(arduino2560DigitalBitMap[pin], 5);
+        bit_clear(arduino2560DigitalBitMap[pin], 7);
         Serial.println("=BLINK OFF"); // Add a space separator      
         digitalWrite(pin, LOW); //Sets the state of the pin to low to avoid Pullup state      
         pinMode(pin, INPUT);//turns pin state to input
         digitalWrite(pin, LOW); //Sets the state of the pin to low to avoid Pullup state
 
     }
-    else if (!bit_get(arduino1280DigitalBitMap[pin], 3))//turns on blink
+    else if (!bit_get(arduino2560DigitalBitMap[pin], 3))//turns on blink
     {
         Serial.print("=BLINK ON"); // Add a space separator      
         Serial.println(); // Terminate message  
         globalblinkstate = ON; //turns on blink 
-        bit_set(arduino1280DigitalBitMap[pin], 3);
-        bit_set(arduino1280DigitalBitMap[pin], 5);
-        bit_set(arduino1280DigitalBitMap[pin], 7);
+        bit_set(arduino2560DigitalBitMap[pin], 3);
+        bit_set(arduino2560DigitalBitMap[pin], 5);
+        bit_set(arduino2560DigitalBitMap[pin], 7);
         pinMode(pin, OUTPUT);//turns pin state to output
-        digitalWrite(pin, bit_get(arduino1280DigitalBitMap[pin], 3)); //Sets the state of the pin to ledstat
+        digitalWrite(pin, bit_get(arduino2560DigitalBitMap[pin], 3)); //Sets the state of the pin to ledstat
         //turns off globalblinkstate
     }
-    for (int i = 0; i < arduino1280DigitalBitMapLength; i++)
+    for (int i = 0; i < arduino2560DigitalBitMapLength; i++)
     {
-        if (bit_get(arduino1280DigitalBitMap[i], 3))
+        if (bit_get(arduino2560DigitalBitMap[i], 3))
         {
             globalblinkstate = ON;
             return;
