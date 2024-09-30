@@ -52,4 +52,10 @@
 <br>
 Complied on 1280 & 2560
 
+Turning on blick pin 13   /wb13
     
+![Screenshot (13)](https://github.com/user-attachments/assets/64b104f4-edbf-44d7-99c2-f75f80d6e185)
+
+
+Digital scan showing 13 blinking
+![Screenshot (14)](https://github.com/user-attachments/assets/a42d09bd-2c72-40b1-aeb9-22ed0c0ed4be)
