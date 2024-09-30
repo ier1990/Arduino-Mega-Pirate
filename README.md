@@ -1,9 +1,9 @@
 # Arduino Mega Pirate
- Arduino Logic State Analyzer
+ Arduino Logic State Analyzer<br>
  Menu<br>  
     Press ?  for Available Commands<br>
     Press /  to create Commandline<br>
-    //Serial.println();<br>
+    <br>
     -----------------Running Commandline--------------------<br>
     Press g  Faster Scan A=/.3v  resolution<br>
     Press f  Fast Scan   A=.02v  resolution<br>
@@ -19,8 +19,7 @@
     Press e  8 Bit Shift Register Pins:clock" + String(clockPin) + ",enable:" + String(enablePin10k) + ",data:" + String(dataPin10k));<br>    
     Press w  8 Bit Shift Register Pins:clock" + String(clockPin) + ",enable:" + String(enablePinvoltmod) + ",data:" + String(dataPin10k));<br>
     Press p  Prints all digitalPinToBitMask to digitalPinToPort " + String(arduino1280DigitalBitMapLength) + " Digital Pins<br>
-    PausePressKey(pause);<br>
-    //Serial.println();<br>
+    <br>    
     -----------------/W WRITE------------------------------<br>
     wb#     Makes pin# Output and BLINKS it HIGH/LOW<br>
     //WriteBlink runs in main loop<br>
@@ -32,7 +31,7 @@
     wu#     Makes pin# PullUp <br>
     wl#     Makes pin# Output as LOW<br>
     wi#     Makes pin# as Input<br>
-    //Serial.println();<br>
+    <br>
     -----------------/R READ------------------------------<br>
     rx      1sec TX 115kbaud(12kchars48kbitstatesMax) using HEX Protacol<br>
     //One Char takes 1/12000 = 80us freq so 12k is the freq aka samples per second not complete cycles !<br>
@@ -48,10 +47,9 @@
     //With FASTADC with No Serial.Read or TX for 1 sec 36948 count at  27us per read  <br>
     -----------------/ Expermental or Broke-----------------<br>
     rf#     Measures Freq pin# Reads<br>
-    b$      $ = letter of register port to read a,b,c,d,e,f,g,h,j,k,l<br>
-    Serial.println();<br>
+    b$      $ = letter of register port to read a,b,c,d,e,f,g,h,j,k,l<br>    
     rc#     Read Capacitance value analog pin# 0-15, takes ~ 2secs <br>
 <br>
-Complied on 1280
+Complied on 1280 & 2560
 
     
