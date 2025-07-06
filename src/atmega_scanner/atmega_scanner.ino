@@ -20,6 +20,67 @@
 #define shPin16 32768
 //32,768 is a positive integer equal to \(2^{15} = 2^{2^4 - 1}\). It is notable in computer science for being the absolute value of the maximum negative value of a 16-bit signed integer, which spans the range [-32768, 32767]
 
+
+struct ZifPin {
+  uint8_t drive;   // Active output: D2–D19
+  uint8_t sense;   // Analog input: A0–A15
+  uint8_t weak;    // Passive pull: D22–D52
+};
+
+// ZIF socket pins 1–16 → Arduino mapping
+ZifPin zif[16] = {
+  {D2,  A0, D22},  // ZIF Pin 1
+  {D3,  A1, D24},  // ZIF Pin 2
+  {D4,  A2, D26},  // ZIF Pin 3
+  {D5,  A3, D28},  // ZIF Pin 4
+  {D6,  A4, D30},  // ZIF Pin 5
+  {D7,  A5, D32},  // ZIF Pin 6
+  {D8,  A6, D34},  // ZIF Pin 7
+  {D9,  A7, D36},  // ZIF Pin 8
+  {D10, A8, D38},  // ZIF Pin 9
+  {D11, A9, D40},  // ZIF Pin 10
+  {D14, A10, D42}, // ZIF Pin 11
+  {D15, A11, D44}, // ZIF Pin 12
+  {D16, A12, D46}, // ZIF Pin 13
+  {D17, A13, D48}, // ZIF Pin 14
+  {D18, A14, D50}, // ZIF Pin 15
+  {D19, A15, D52}  // ZIF Pin 16
+};
+
+
+void driveZifHigh(uint8_t zifPin) {
+  pinMode(zif[zifPin].drive, OUTPUT);
+  digitalWrite(zif[zifPin].drive, HIGH);
+}
+
+void driveZifLow(uint8_t zifPin) {
+  pinMode(zif[zifPin].drive, OUTPUT);
+  digitalWrite(zif[zifPin].drive, LOW);
+}
+
+void setPullUp(uint8_t zifPin) {
+  pinMode(zif[zifPin].weak, OUTPUT);
+  digitalWrite(zif[zifPin].weak, HIGH);
+}
+
+void setPullDown(uint8_t zifPin) {
+  pinMode(zif[zifPin].weak, OUTPUT);
+  digitalWrite(zif[zifPin].weak, LOW);
+}
+
+float readZifVoltage(uint8_t zifPin) {
+  return analogRead(zif[zifPin].sense) * (5.0 / 1023.0);
+}
+
+void printZifStatus(uint8_t pin) {
+  Serial.print("ZIF Pin ");
+  Serial.print(pin + 1);
+  Serial.print(": Voltage = ");
+  Serial.println(readZifVoltage(pin), 3);
+}
+
+
+
 /*
  ---- Arduino Analog Logic State Analyzer v2 ----
 
